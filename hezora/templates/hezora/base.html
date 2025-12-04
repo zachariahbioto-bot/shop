@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    {% load static %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Hezora</title>
+    <link href="https://fonts.googleapis.com/css2?family=Alegreya:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'hezora/styles.css' %}">
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container">
+        <a class="brand" href="{% url 'hezora:index' %}">Hezora</a>
+        <nav>
+          <a href="{% url 'hezora:cart' %}" class="cart">Cart (<span id="cart-count">{{ cart_count }}</span>)</a>
+        </nav>
+      </div>
+    </header>
+    <main class="container">
+      {% block content %}{% endblock %}
+    </main>
+  </body>
+</html>
+<!doctype html>
+<html lang="en">
+  <head>
+    {% load static %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Hezora</title>
+    <link href="https://fonts.googleapis.com/css2?family=Alegreya:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'hezora/styles.css' %}">
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container">
+        <a class="brand" href="{% url 'hezora:index' %}">Hezora</a>
+        <nav>
+          <a href="{% url 'hezora:cart' %}" class="cart">Cart (<span id="cart-count">{{ cart_count }}</span>)</a>
+        </nav>
+      </div>
+    <!doctype html>
+    <html lang="en">
+      <head>
+        {% load static %}
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>Hezora</title>
+        <link href="https://fonts.googleapis.com/css2?family=Alegreya:wght@400;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'hezora/styles.css' %}">
+      </head>
+      <body>
+        <header class="topbar">
+          <div class="container">
+            <a class="brand" href="{% url 'hezora:index' %}">Hezora</a>
+            <nav>
+              <a href="{% url 'hezora:cart' %}" class="cart">Cart (<span id="cart-count">{{ cart_count }}</span>)</a>
+            </nav>
+          </div>
+        </header>
+        <main class="container">
+          {% block content %}{% endblock %}
+        </main>
+      </body>
+    </html>

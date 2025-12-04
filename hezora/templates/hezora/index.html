@@ -1,0 +1,24 @@
+{% extends 'hezora/base.html' %}
+{% block content %}
+  <h1>Available Books</h1>
+  <div class="grid">
+    {% for book in books %}
+      <div class="card">
+        {% if book.cover %}
+          <img src="{{ book.cover.url }}" alt="{{ book.title }} cover">
+        {% else %}
+          <div class="placeholder">PDF</div>
+        {% endif %}
+        <h3><a href="{% url 'hezora:book_detail' book.pk %}">{{ book.title }}</a></h3>
+        <p class="author">{{ book.author }}</p>
+        <p class="price">KSH {{ book.price }}</p>
+        <form action="{% url 'hezora:add_to_cart' book.pk %}" method="post">
+          {% csrf_token %}
+          <button class="btn">Add to cart</button>
+        </form>
+      </div>
+    {% empty %}
+      <p>No books available yet.</p>
+    {% endfor %}
+  </div>
+{% endblock %}

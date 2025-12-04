@@ -1,0 +1,16 @@
+{% extends 'hezora/base.html' %}
+{% block content %}
+  <div class="book-detail">
+    <h1>{{ book.title }}</h1>
+    <p class="author">{{ book.author }}</p>
+    {% if book.cover %}
+      <img src="{{ book.cover.url }}" alt="cover">
+    {% endif %}
+    <p class="price">KSH {{ book.price }}</p>
+    <div class="desc">{{ book.description|linebreaks }}</div>
+    <form action="{% url 'hezora:add_to_cart' book.pk %}" method="post">
+      {% csrf_token %}
+      <button class="btn">Add to cart</button>
+    </form>
+  </div>
+{% endblock %}
