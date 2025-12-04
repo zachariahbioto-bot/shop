@@ -1,0 +1,15 @@
+{
+  "name": "hezora-shop",
+  "version": "1.0.0",
+  "description": "Hezora Django Book Store",
+  "main": "index.js",
+  "scripts": {
+    "build:css": "tailwindcss -i ./hezora/static/input.css -o ./hezora/static/hezora/styles.css",
+    "watch:css": "tailwindcss -i ./hezora/static/input.css -o ./hezora/static/hezora/styles.css --watch"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.47",
+    "tailwindcss": "^3.4.17"
+  }
+}

@@ -25,7 +25,18 @@ SECRET_KEY = "django-insecure-$jv&qew75ku(mzxzzxw$kvd(195xy*9mhslllmwx-*k!x!fapw
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["*","localhost:8000", "127.0.0.1:8000"]
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:8000",
+    "http://127.0.0.1:8000",
+    "http://localhost:8001",
+    "http://127.0.0.1:8001",
+    "https://localhost:8000",
+    "https://127.0.0.1:8000",
+    "https://localhost:8001",
+    "https://127.0.0.1:8001",
+]
 
 
 # Application definition
@@ -37,7 +48,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "store",
+    
     "hezora",
 ]
 
@@ -125,4 +136,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 # Email settings (for sending receipts). Configure SMTP in production.
 DEFAULT_FROM_EMAIL = "no-reply@hezora.local"
+
+
 

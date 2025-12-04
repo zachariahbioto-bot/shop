@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.conf import settings
 from django.core.mail import send_mail
+from django.views.decorators.http import require_http_methods
 
 from .models import Book, Order, OrderItem
 from .forms import CheckoutForm
@@ -62,7 +63,6 @@ def checkout(request):
                 book = Book.objects.get(pk=int(book_id))
                 OrderItem.objects.create(order=order, book=book, quantity=qty)
                 total += book.price * qty
-            # clear cart
             request.session["cart"] = {}
             return render(request, "hezora/order_summary.html", {"order": order, "total": total, "cart_count": 0})
     else:
@@ -71,13 +71,12 @@ def checkout(request):
     return render(request, "hezora/checkout.html", {"form": form, "cart_count": _cart_count(request)})
 
 
+@require_http_methods(["POST"])
 def simulate_payment(request, order_id):
     order = get_object_or_404(Order, pk=order_id)
-    # This endpoint simulates a successful M-Pesa callback. In production, hook up to Daraja.
     order.paid = True
     order.save()
 
-    # Send receipt email (requires email backend configured)
     subject = f"Payment receipt for Order {order.id}"
     lines = [f"Thank you for your purchase!", f"Order ID: {order.id}", "Items:"]
     for item in order.items.all():

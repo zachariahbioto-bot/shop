@@ -14,8 +14,10 @@
   <p>Total: KSH {{ total }}</p>
   {% if not order.paid %}
     <p>
-      <!-- In production, redirect to M-Pesa / Daraja integration here -->
-      <a class="btn" href="{% url 'hezora:simulate_payment' order.id %}">Simulate M-Pesa Payment</a>
+      <form method="post" action="{% url 'hezora:simulate_payment' order.id %}" style="display:inline;">
+        {% csrf_token %}
+        <button class="btn">Simulate M-Pesa Payment</button>
+      </form>
     </p>
   {% endif %}
 {% endblock %}
