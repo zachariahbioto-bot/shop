@@ -9,51 +9,12 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    <style>
-        :root {
-            --bg-main: #fcfbf7;
-            --accent: #c28e5e;
-            --text-dark: #3d3328;
-            --text-light: #8c8479;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f0f0f0;
-            color: var(--text-dark);
-        }
-
-        h1, h2, h3, h4, .serif {
-            font-family: 'Merriweather', serif;
-        }
-
-        .hide-scroll::-webkit-scrollbar { display: none; }
-        .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-fade-in { animation: fadeIn 0.4s ease-out forwards; }
-
-        .shelf-base {
-            background-color: #e8e4db;
-            border-top: 1px solid #dcd8cf;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-
-        .spine-highlight {
-            background: linear-gradient(to right, rgba(255,255,255,0.2), rgba(0,0,0,0) 80%, rgba(0,0,0,0.1));
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'hezora/custom.css' %}">
 </head>
 <body class="bg-[#f0f0f0]">
 
@@ -76,9 +37,14 @@
                     <span class="text-[10px] md:text-sm font-medium">Home</span>
                 </a>
                 
-                <a href="{% url 'hezora:index' %}" class="nav-item group flex flex-col md:flex-row items-center gap-1 md:gap-4 px-4 py-2 md:py-3.5 rounded-xl text-[#8c8479] hover:bg-[#efece6]/50 hover:text-[#3d3328] transition-all relative active" data-tab="library">
+                <a href="{% url 'hezora:library' %}" class="nav-item group flex flex-col md:flex-row items-center gap-1 md:gap-4 px-4 py-2 md:py-3.5 rounded-xl text-[#8c8479] hover:bg-[#efece6]/50 hover:text-[#3d3328] transition-all relative" data-tab="library">
                     <i data-lucide="book-open" class="w-6 h-6 md:w-5 md:h-5"></i>
                     <span class="text-[10px] md:text-sm font-medium">My Library</span>
+                </a>
+
+                <a href="{% url 'hezora:favorites' %}" class="nav-item group flex flex-col md:flex-row items-center gap-1 md:gap-4 px-4 py-2 md:py-3.5 rounded-xl text-[#8c8479] hover:bg-[#efece6]/50 hover:text-[#3d3328] transition-all relative" data-tab="favorites">
+                    <i data-lucide="star" class="w-6 h-6 md:w-5 md:h-5"></i>
+                    <span class="text-[10px] md:text-sm font-medium">Favorites</span>
                 </a>
 
                 <a href="{% url 'hezora:cart' %}" class="nav-item group flex flex-col md:flex-row items-center gap-1 md:gap-4 px-4 py-2 md:py-3.5 rounded-xl text-[#8c8479] hover:bg-[#efece6]/50 hover:text-[#3d3328] transition-all relative" data-tab="shop">
@@ -98,14 +64,26 @@
             <!-- Sidebar Footer -->
             <div class="hidden md:block pb-6 space-y-6">
                 <div class="px-6 border-t border-[#e6e2da] pt-4 mx-4">
-                    <button class="w-full flex items-center gap-3 p-2 rounded-xl hover:bg-[#efece6] transition-colors">
-                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=150" alt="User" class="w-9 h-9 rounded-xl object-cover border border-white shadow-sm">
-                        <div class="flex flex-col items-start text-left">
-                            <span class="text-xs font-bold text-[#3d3328]">User</span>
-                            <span class="text-[10px] text-[#8c8479]">Member</span>
+                    {% if user.is_authenticated %}
+                        <div class="w-full flex items-center gap-3 p-2 rounded-xl hover:bg-[#efece6] transition-colors">
+                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=150" alt="User" class="w-9 h-9 rounded-xl object-cover border border-white shadow-sm">
+                            <div class="flex flex-col items-start text-left">
+                                <span class="text-xs font-bold text-[#3d3328]">{{ user.username }}</span>
+                                <a href="{% url 'hezora:logout' %}" class="text-[10px] text-[#8c8479]">Logout</a>
+                            </div>
+                            <i data-lucide="chevron-right" class="w-4 h-4 text-gray-400 ml-auto"></i>
                         </div>
-                        <i data-lucide="chevron-right" class="w-4 h-4 text-gray-400 ml-auto"></i>
-                    </button>
+                    {% else %}
+                        <a href="{% url 'hezora:login' %}" class="w-full flex items-center gap-3 p-2 rounded-xl hover:bg-[#efece6] transition-colors">
+                            <div class="w-9 h-9 rounded-xl bg-gray-200 flex items-center justify-center">
+                                <i data-lucide="user" class="w-5 h-5 text-gray-400"></i>
+                            </div>
+                            <div class="flex flex-col items-start text-left">
+                                <span class="text-xs font-bold text-[#3d3328]">Guest</span>
+                                <span class="text-[10px] text-[#8c8479]">Login or Sign Up</span>
+                            </div>
+                        </a>
+                    {% endif %}
                 </div>
             </div>
         </aside>

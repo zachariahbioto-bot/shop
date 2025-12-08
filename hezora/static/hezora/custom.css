@@ -1,0 +1,35 @@
+:root {
+    --bg-main: #fcfbf7;
+    --accent: #c28e5e;
+    --text-dark: #3d3328;
+    --text-light: #8c8479;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f0f0f0;
+    color: var(--text-dark);
+}
+
+h1, h2, h3, h4, .serif {
+    font-family: 'Merriweather', serif;
+}
+
+.hide-scroll::-webkit-scrollbar { display: none; }
+.hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in { animation: fadeIn 0.4s ease-out forwards; }
+
+.shelf-base {
+    background-color: #e8e4db;
+    border-top: 1px solid #dcd8cf;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.spine-highlight {
+    background: linear-gradient(to right, rgba(255,255,255,0.2), rgba(0,0,0,0) 80%, rgba(0,0,0,0.1));
+}

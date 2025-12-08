@@ -1,5 +1,5 @@
 {% extends 'hezora/base.html' %}
-{% block page_title %}Available Books{% endblock %}
+{% block page_title %}My Library{% endblock %}
 
 {% block content %}
 <div class="animate-fade-in">
@@ -21,9 +21,9 @@
                         
                         <!-- Action Buttons -->
                         <div class="absolute top-2 right-2 flex flex-col gap-2 translate-x-10 group-hover:translate-x-0 transition-transform duration-300">
-                            <a href="{% url 'hezora:add_to_favorites' book.pk %}" class="w-8 h-8 bg-white rounded-full shadow flex items-center justify-center text-gray-400 hover:text-yellow-500 transition-colors">
+                            <button class="w-8 h-8 bg-white rounded-full shadow flex items-center justify-center text-gray-400 hover:text-yellow-500 transition-colors">
                                 <i data-lucide="star" class="w-4 h-4"></i>
-                            </a>
+                            </button>
                         </div>
 
                         <!-- Primary Action Buttons -->
@@ -31,12 +31,6 @@
                             <a href="{% url 'hezora:download_book' book.pk %}" class="bg-[#c28e5e] hover:bg-[#b87a4a] text-white text-xs font-bold px-3 py-2 rounded-full shadow-lg flex items-center gap-1 whitespace-nowrap">
                                 <i data-lucide="download" class="w-3 h-3"></i> Download
                             </a>
-                            <form action="{% url 'hezora:add_to_cart' book.pk %}" method="post" class="inline">
-                                {% csrf_token %}
-                                <button type="submit" class="bg-[#3d3328] hover:bg-[#2a231b] text-white text-xs font-bold px-3 py-2 rounded-full shadow-lg flex items-center gap-1 whitespace-nowrap">
-                                    <i data-lucide="plus" class="w-3 h-3"></i> Add
-                                </button>
-                            </form>
                         </div>
                     </div>
 
@@ -58,7 +52,7 @@
     {% else %}
         <div class="flex flex-col items-center justify-center h-64 text-center opacity-50 animate-fade-in">
             <i data-lucide="book-open" class="w-12 h-12 mb-4 text-[#8c8479]"></i>
-            <p class="text-[#8c8479]">No books available yet.</p>
+            <p class="text-[#8c8479]">Your library is empty.</p>
         </div>
     {% endif %}
 </div>

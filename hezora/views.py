@@ -6,8 +6,22 @@ from django.core.mail import send_mail
 from django.http import FileResponse
 import os
 
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login
 from .models import Book, Order, OrderItem
-from .forms import CheckoutForm
+from .forms import CheckoutForm, SignUpForm
+
+
+def signup(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('hezora:index')
+    else:
+        form = SignUpForm()
+    return render(request, 'hezora/signup.html', {'form': form})
 
 
 def _cart_count(request):
@@ -52,6 +66,7 @@ def add_to_cart(request, pk):
     return redirect(request.META.get("HTTP_REFERER", reverse("hezora:index")))
 
 
+@login_required
 def cart_view(request):
     cart = request.session.get("cart", {})
     items = []
@@ -66,11 +81,34 @@ def cart_view(request):
     return render(request, "hezora/cart.html", {"items": items, "total": total, "cart_count": _cart_count(request)})
 
 
+def library_view(request):
+    return render(request, "hezora/library.html", {"cart_count": _cart_count(request)})
+
+
+def add_to_favorites(request, pk):
+    favorites = request.session.get("favorites", [])
+    if pk not in favorites:
+        favorites.append(pk)
+    request.session["favorites"] = favorites
+    return redirect(request.META.get("HTTP_REFERER", reverse("hezora:index")))
+
+
+def favorites_view(request):
+    favorites = request.session.get("favorites", [])
+    books = Book.objects.filter(pk__in=favorites)
+    return render(request, "hezora/favorites.html", {"books": books, "cart_count": _cart_count(request)})
+
+
+@login_required
+def profile_view(request):
+    return render(request, 'hezora/profile.html')
+
+
+@login_required
 def checkout(request):
     cart = request.session.get("cart", {})
     if not cart:
         return redirect("hezora:index")
-
     if request.method == "POST":
         form = CheckoutForm(request.POST)
         if form.is_valid():

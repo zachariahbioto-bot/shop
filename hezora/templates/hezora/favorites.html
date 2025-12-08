@@ -1,5 +1,5 @@
 {% extends 'hezora/base.html' %}
-{% block page_title %}Available Books{% endblock %}
+{% block page_title %}My Favorites{% endblock %}
 
 {% block content %}
 <div class="animate-fade-in">
@@ -58,7 +58,7 @@
     {% else %}
         <div class="flex flex-col items-center justify-center h-64 text-center opacity-50 animate-fade-in">
             <i data-lucide="book-open" class="w-12 h-12 mb-4 text-[#8c8479]"></i>
-            <p class="text-[#8c8479]">No books available yet.</p>
+            <p class="text-[#8c8479]">You have no favorite books yet.</p>
         </div>
     {% endif %}
 </div>
