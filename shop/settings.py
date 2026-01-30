@@ -139,13 +139,9 @@ DEFAULT_FROM_EMAIL = "no-reply@hezora.local"
 
 LOGIN_REDIRECT_URL = '/'
 
-
-
-
 # Increase file upload size limit
 FILE_UPLOAD_MAX_MEMORY_SIZE = 52428800  # 50MB
 DATA_UPLOAD_MAX_MEMORY_SIZE = 52428800  # 50MB
 
-# Increase file upload size limit
-FILE_UPLOAD_MAX_MEMORY_SIZE = 52428800  # 50MB
-DATA_UPLOAD_MAX_MEMORY_SIZE = 52428800  # 50MB
+# Default primary key field type
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
